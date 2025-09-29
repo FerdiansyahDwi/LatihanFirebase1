@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "316004392597",
+    "project_id": "ferr-project",
+    "storage_bucket": "ferr-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316004392597:android:7b74408a502812a8c8859c",
+        "android_client_info": {
+          "package_name": "com.example.latihanfirebase1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316004392597-e635jj5a0e59aps6gimvo3cionjk6ca5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.latihanfirebase1",
+            "certificate_hash": "25d1930461270fea761c0e47899bfb502659b877"
+          }
+        },
+        {
+          "client_id": "316004392597-fql863kp0e7flecld5mg0trnt5f21gq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF6WKpraC1ocW_2QNY5wf1p7KxI-yYwRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316004392597-fql863kp0e7flecld5mg0trnt5f21gq3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
