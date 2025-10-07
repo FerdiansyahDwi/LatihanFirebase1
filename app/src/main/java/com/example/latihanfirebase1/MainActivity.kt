@@ -1,5 +1,6 @@
 package com.example.latihanfirebase1
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun prepareRequest(): GetCredentialRequest {
-        val serverClientId = "316004392597-fql863kp0e7flecld5mg0trnt5f21gq3.apps.googleusercontent.com"
+        val serverClientId =
+            "316004392597-fql863kp0e7flecld5mg0trnt5f21gq3.apps.googleusercontent.com"
 
         val googleIdOption = GetGoogleIdOption
             .Builder()
@@ -91,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     fun firebaseLoginCallback(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) {task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Login berhasil", Toast.LENGTH_LONG).show()
                 } else {
@@ -100,4 +102,17 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (auth.currentUser != null) {
+            toTodoPage()
+        }
+
+    }
+
+    private fun toTodoPage() {
+        val intent = Intent(this, TodoActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
