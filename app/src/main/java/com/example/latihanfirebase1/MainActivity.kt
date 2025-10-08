@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Login berhasil", Toast.LENGTH_LONG).show()
+                    toTodoPage()
                 } else {
                     Toast.makeText(this, "Login gagal", Toast.LENGTH_LONG).show()
                 }
