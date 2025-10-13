@@ -1,5 +1,6 @@
 package com.example.latihanfirebase1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -33,6 +34,16 @@ class TodoActivity : AppCompatActivity() {
         todoUseCase = TodoUseCase()
         setupRecyclerView()
         initializeData()
+
+        registerEvents()
+    }
+
+    private fun registerEvents() {
+        binding.tombolRegister.setOnClickListener {
+            val intent = Intent(this,CreateTodoActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupRecyclerView() {

@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3089D0"
     tools:context=".TodoActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@
         android:padding="20dp"
         android:layout_margin="20dp"
         android:src="@android:color/background_dark"
+        android:id="@+id/tombolRegister"
 
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
