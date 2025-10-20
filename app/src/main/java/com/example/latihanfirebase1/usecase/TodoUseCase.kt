@@ -29,6 +29,23 @@ class TodoUseCase {
         }
     }
 
+    suspend fun getTodo(id: String): Todo? {
+        val data = db.collection("todo")
+            .document(id)
+            .get()
+            .await()
+
+        if (data.exists()) {
+            return Todo(
+                id = data.id,
+                title = data.getString("title").toString(),
+                description = data.getString("description").toString()
+            )
+        }
+
+        return null
+    }
+
     suspend fun createTodo(todo: Todo): Todo {
         val data = hashMapOf(
             "title" to todo.title,
@@ -41,6 +58,33 @@ class TodoUseCase {
                 .await()
 
             return todo.copy(id = docRef.id)
+        } catch (exc: Exception) {
+            throw Exception(exc.message)
+        }
+    }
+
+    suspend fun updateTodo(todo: Todo) {
+        val payload = hashMapOf(
+            "title" to todo.title,
+            "description" to todo.description
+        )
+
+        try {
+            db.collection("todo")
+                .document(todo.id)
+                .set(payload)
+                .await()
+        } catch (exc: Exception) {
+            throw Exception(exc.message)
+        }
+    }
+
+    suspend fun deleteTodo(id: String) {
+        try {
+            db.collection("todo")
+                .document(id)
+                .delete()
+                .await()
         } catch (exc: Exception) {
             throw Exception(exc.message)
         }

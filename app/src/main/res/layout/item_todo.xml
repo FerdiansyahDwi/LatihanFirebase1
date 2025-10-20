@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Memasak di Dapur"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         />
 
     <TextView
@@ -24,6 +24,6 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/title"
         android:text="sgnshfswrewesghxgsrgafi"
-        android:textColor="@color/white"/>
+        android:textColor="@color/black"/>
 
 </RelativeLayout>

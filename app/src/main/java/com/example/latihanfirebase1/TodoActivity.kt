@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.latihanfirebase1.adapter.TodoAdapter
 import com.example.latihanfirebase1.databinding.ActivityTodoBinding
+import com.example.latihanfirebase1.entity.Todo
 import com.example.latihanfirebase1.usecase.TodoUseCase
 import kotlinx.coroutines.launch
 
@@ -47,7 +49,40 @@ class TodoActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        todoAdapter = TodoAdapter(mutableListOf())
+        todoAdapter = TodoAdapter(mutableListOf(), object : TodoAdapter.TodoItemEvents {
+            override fun onDelete(todo: Todo) {
+                val builder = AlertDialog.Builder(this@TodoActivity)
+                builder.setTitle("Konfirmasi hapus data")
+                builder.setMessage("Apakah anda yakin ingin menghapus data?")
+
+                builder.setPositiveButton("Ya") { _, _ ->
+                    lifecycleScope.launch {
+                        try {
+                            todoUseCase.deleteTodo(todo.id)
+                            displayMessage("Data berhasil dihapus")
+                        } catch (exc: Exception) {
+                            displayMessage("Gagal menghapus data : ${exc.message}")
+                        }
+
+                        initializeData()
+                    }
+                }
+
+                builder.setNeutralButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+
+                val dialog = builder.create()
+                dialog.show()
+            }
+
+            override fun onEdit(todo: Todo) {
+                val intent = Intent(this@TodoActivity, EditTodoActivity::class.java)
+                intent.putExtra("todo_item_id", todo.id)
+                startActivity(intent)
+            }
+
+        })
         binding.container.apply {
             adapter = todoAdapter
             layoutManager = LinearLayoutManager(this@TodoActivity)
@@ -68,5 +103,9 @@ class TodoActivity : AppCompatActivity() {
                 Toast.makeText(this@TodoActivity, e.message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun displayMessage(message: String) {
+        Toast.makeText(this@TodoActivity, message, Toast.LENGTH_SHORT).show()
     }
 }
